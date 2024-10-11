@@ -1,0 +1,13 @@
+<div class="fixed top-0 w-full z-50 bg-slate-200">
+    <app-header class="w-full shadow-md " />
+</div>
+<!-- Ajoute une marge pour compenser la hauteur du header fixé -->
+<div class="flex rounded-md w-full  justify-between p-3 bg-slate-200 mt-[83px]">
+    <div class="w-[70%]">   
+        <app-main-content />
+    </div>
+    <!-- Right Side Bar Fixed -->
+    <div class="xl:block w-[20%] fixed top-[90px] right-0 h-full">
+        <app-right-side-bar class="h-full" />
+    </div>
+</div>

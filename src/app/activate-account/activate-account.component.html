@@ -1,0 +1,44 @@
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+  <!-- Card container -->
+  <div class="bg-white shadow-md rounded-lg p-6 max-w-md w-full">
+    <div class="text-center mb-4">
+      <h1 class="text-2xl font-semibold text-gray-700">
+        Activate Your Account
+      </h1>
+      <p class="text-gray-500">
+        Please wait while we activate your account with the provided token.
+      </p>
+    </div>
+
+    <!-- Loader while the account is being activated -->
+    <div
+      *ngIf="!isActivated && !hasError"
+      class="flex items-center justify-center mt-4"
+    >
+      <div class="loader">
+        <hlm-spinner />
+      </div>
+      <!-- You can implement a simple spinner -->
+    </div>
+
+    <!-- Success Message -->
+    <div *ngIf="isActivated && !hasError" class="text-center mt-6">
+      <p class="text-green-600 font-medium">
+        Your account has been activated successfully!
+      </p>
+      <a class="text-blue-500 hover:underline mt-2 block" [routerLink]="'/login'"
+        >Click here to login</a
+      >
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="hasError" class="text-center mt-6">
+      <p class="text-red-600 font-medium">
+        There was an error activating your account. Please try again later.
+      </p>
+      <a class="text-blue-500 hover:underline mt-2 block"  [routerLink]="'/register'"
+        >Return to Register</a
+      >
+    </div>
+  </div>
+</div>

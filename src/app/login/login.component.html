@@ -1,0 +1,105 @@
+<div class="flex items-center justify-center h-screen w-screen">
+    <div>
+      <hlm-tabs tab="account" class="w-full">
+        <hlm-tabs-list class="w-full grid grid-cols-2" aria-label="tabs example">
+          <button hlmTabsTrigger="account">Login</button>
+          <button hlmTabsTrigger="password">Register</button>
+        </hlm-tabs-list>
+  
+        <!-- Login Form -->
+        <div hlmTabsContent="account">
+          <section hlmCard>
+            <div hlmCardHeader>
+              <h3 hlmCardTitle>Login</h3>
+              <p hlmCardDescription>Enter your credentials to log into your account.</p>
+            </div>
+            <div hlmCardContent>
+              <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <!-- Email Field -->
+                <label class="block my-4" hlmLabel>
+                  Email
+                  <input class="mt-1.5 w-full" type="email" formControlName="email" placeholder="Enter your email" hlmInput />
+                  <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                    <p *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</p>
+                    <p *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</p>
+                  </div>
+                </label>
+  
+                <!-- Password Field -->
+                <label class="block my-4" hlmLabel>
+                  Password
+                  <input class="mt-1.5 w-full" type="password" formControlName="password" placeholder="Enter your password" hlmInput />
+                  <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                    <p *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</p>
+                    <p *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</p>
+                  </div>
+                </label>
+  
+                <!-- Submit Button -->
+                <div hlmCardFooter>
+                  <button hlmBtn type="submit" [disabled]="loginForm.invalid">Login</button>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+  
+        <!-- Registration Form -->
+        <div hlmTabsContent="password">
+          <section hlmCard>
+            <div hlmCardHeader>
+              <h3 hlmCardTitle>Register</h3>
+              <p hlmCardDescription>Create an account by filling in the form below.</p>
+            </div>
+            <div hlmCardContent>
+              <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+                <!-- First Name Field -->
+                <label class="block my-4" hlmLabel>
+                  First Name
+                  <input class="mt-1.5 w-full" type="text" formControlName="firstName" placeholder="Enter your first name" hlmInput />
+                  <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+                    <p *ngIf="registerForm.get('firstName')?.errors?.['required']">First name is required</p>
+                  </div>
+                </label>
+  
+                <!-- Last Name Field -->
+                <label class="block my-4" hlmLabel>
+                  Last Name
+                  <input class="mt-1.5 w-full" type="text" formControlName="lastName" placeholder="Enter your last name" hlmInput />
+                  <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+                    <p *ngIf="registerForm.get('lastName')?.errors?.['required']">Last name is required</p>
+                  </div>
+                </label>
+  
+                <!-- Email Field -->
+                <label class="block my-4" hlmLabel>
+                  Email
+                  <input class="mt-1.5 w-full" type="email" formControlName="email" placeholder="Enter your email" hlmInput />
+                  <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                    <p *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</p>
+                    <p *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email</p>
+                  </div>
+                </label>
+  
+                <!-- Password Field -->
+                <label class="block my-4" hlmLabel>
+                  Password
+                  <input class="mt-1.5 w-full" type="password" formControlName="password" placeholder="Create a password" hlmInput />
+                  <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                    <p *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</p>
+                    <p *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</p>
+                  </div>
+                </label>
+  
+                <!-- Submit Button -->
+                <div hlmCardFooter>
+                  <button hlmBtn type="submit" [disabled]="registerForm.invalid">Register</button>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+      </hlm-tabs>
+    </div>
+  </div>
+  
