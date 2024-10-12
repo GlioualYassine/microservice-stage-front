@@ -1,0 +1,74 @@
+/* Styles globaux */
+body {
+    font-family: 'Arial', sans-serif; /* Choisissez une police moderne */
+  }
+  
+  /* Boutons */
+  button {
+    transition: all 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  
+  button:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Effets de focus */
+  input:focus, textarea:focus, button:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); /* Bleu doux */
+  }
+  
+  /* Modale */
+  .modal-container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Placeholder avatar */
+  .placeholder-avatar {
+    background-color: #e5e7eb;
+    border-radius: 50%;
+  }
+  
+  /* Espacement et mise en page */
+  .mt-1 {
+    margin-top: 0.25rem;
+  }
+  
+  .mt-4 {
+    margin-top: 1rem;
+  }
+  
+  .mb-3 {
+    margin-bottom: 0.75rem;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1rem;
+  }
+  
+  .bg-gray-50 {
+    background-color: #f9fafb;
+  }
+  
+  .bg-gray-300 {
+    background-color: #d1d5db;
+  }
+  
+  .text-gray-600 {
+    color: #4b5563;
+  }
+  
+  .text-gray-800 {
+    color: #1f2937;
+  }
+  
+  /* Survol */
+  .hover\\:underline:hover {
+    text-decoration: underline;
+  }
+  

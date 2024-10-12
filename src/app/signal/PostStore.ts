@@ -14,18 +14,21 @@ export class PostStore {
     this.loadPosts();
   }
 
-  async loadPosts() {
-    try {
-      const posts = await new Promise<PostResponse[]>((resolve, reject) => {
-        this.postService.getAllPosts();
-        resolve([]); // Vous devez adapter ici en fonction de ce que vous souhaitez
-      });
-      
-      this.posts.set(posts);
-    } catch (error) {
-      console.error('Erreur lors du chargement des posts', error);
-    }
+  loadPosts() {
+    this.postService.getAllPosts().subscribe({
+      next: (posts) => {
+        console.log('Posts récupérés dans PostStore:', posts);
+        this.posts.set(posts); // Met à jour le signal avec les posts récupérés
+        // Déclenche une mise à jour manuelle dans le composant
+        this.posts.update((currentPosts) => [...currentPosts]);
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des posts', error);
+      },
+    });
   }
+  
+  
   
 
   // Ajouter un post et mettre à jour le signal en temps réel

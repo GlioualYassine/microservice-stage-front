@@ -10,20 +10,14 @@ import { PostRequest } from '../models/PostRequest';
 export class PostService {
   private apiUrl = 'http://localhost:8589/api/v1/posts';
 
-  // BehaviorSubject pour gérer la liste des posts
-  private postsSubject = new BehaviorSubject<PostResponse[]>([]);
-  posts$ = this.postsSubject.asObservable(); // Observable pour les composants
-
   constructor(private http: HttpClient) {}
 
-  // Récupérer tous les posts depuis le backend et mettre à jour le BehaviorSubject
-  getAllPosts(): void {
-    this.http.get<PostResponse[]>(this.apiUrl).subscribe((posts) => {
-      this.postsSubject.next(posts); // Met à jour le BehaviorSubject avec la liste des posts
-    });
+  // Récupérer tous les posts depuis le backend
+  getAllPosts(): Observable<PostResponse[]> {
+    return this.http.get<PostResponse[]>(this.apiUrl);
   }
 
-  // Créer un post et mettre à jour le BehaviorSubject après l'ajout
+  // Créer un post
   createPost(postData: PostRequest): Observable<PostResponse> {
     const formData = new FormData();
     formData.append('content', postData.content);
@@ -33,12 +27,12 @@ export class PostService {
       formData.append('file', postData.image);
     }
 
-    return this.http.post<PostResponse>(this.apiUrl, formData).pipe(
-      tap((newPost: PostResponse) => {
-        const currentPosts = this.postsSubject.value; // Récupère la liste actuelle des posts
-        this.postsSubject.next([...currentPosts, newPost]); // Ajoute le nouveau post
-      })
-    );
+    return this.http.post<PostResponse>(this.apiUrl, formData);
+  }
+
+  // Supprimer un post
+  deletePost(postId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${postId}`);
   }
 
   // Mettre à jour un post
@@ -52,10 +46,5 @@ export class PostService {
     }
 
     return this.http.put<PostResponse>(`${this.apiUrl}/${postId}`, formData);
-  }
-
-  // Supprimer un post
-  deletePost(postId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${postId}`);
   }
 }
