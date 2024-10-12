@@ -35,6 +35,7 @@ import { BrnSeparatorComponent } from '@spartan-ng/ui-separator-brain';
 import { NgIconComponent } from '@ng-icons/core';
 import { PostResponse } from '../models/PostResponse';
 import { PostService } from '../services/post.service';
+import { PostStore } from '../signal/PostStore';
 
 @Component({
   selector: 'app-post',
@@ -70,17 +71,29 @@ export class PostComponent implements OnInit {
 
   posts: PostResponse[] = [];
 
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService , private postStore: PostStore) {}
 
   ngOnInit(): void {
-    this.postService.getAllPosts().subscribe({
-      next: (response) => {
-        this.posts = response;
-        
+    // S'abonner à l'Observable posts$
+    this.postService.posts$.subscribe({
+      next: (posts) => {
+        this.posts = posts;
       },
       error: (error) => {
         console.error(error);
       },
-    });
+    }
+  
+  );
+  console.log('Contenu du Store:');
+
+    // Charger les posts au démarrage
+    this.postService.getAllPosts();
+  }
+
+  // Méthode pour charger les posts et afficher leur contenu dans la console
+  loadPostsAndLog() {
+    // Affiche les posts actuels dans la console
+    console.log('Contenu du Store:', this.postStore.posts);
   }
 }
