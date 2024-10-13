@@ -39,12 +39,12 @@ export class PostService {
   updatePost(postId: string, postData: PostResponse): Observable<PostResponse> {
     const formData = new FormData();
     formData.append('content', postData.content);
-    formData.append('userId', postData.user.id.toString());
-
+    //formData.append('userId', postData.user.id.toString());
+/*
     if (postData.image) {
       formData.append('file', postData.image);
     }
-
+*/
     return this.http.put<PostResponse>(`${this.apiUrl}/${postId}`, formData);
   }
 }
