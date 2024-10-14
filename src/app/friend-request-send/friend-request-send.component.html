@@ -1,8 +1,24 @@
-<div class="w-full bg-slate-200 mt-[100px] ">
-  <div class="pt-[50px] pl-[350px] z-[60]">
-    <h2 class="font-bold text-[20px] ">People you may know</h2>
+<div class="w-full h-auto bg-slate-200 mt-[100px] overflow-hidden">
+    <!-- Section: Friend Requests -->
+    <div class="pt-[50px] pl-[350px] z-[60] mb-0">
+      <h2 class="font-bold text-[20px] mb-2">Friend Requests</h2>
+    </div>
+    <div class="w-[100%] pl-[370px] px-20 overflow-hidden">
+      <app-my-request-friend-main></app-my-request-friend-main>
+    </div>
+
+  
+    <!-- Séparateur -->
+<div class="pl-11">
+        <brn-separator hlmSeparator class="w-full bg-slate-400 m-0 px-4 overflow-hidden"></brn-separator>
+    
+</div>  
+    <!-- Section: People You May Know -->
+    <div class="pl-[350px] z-[60]  overflow-hidden">
+      <h2 class="font-bold text-[20px] mb-2">People you may know</h2>
+    </div>
+    <div class="w-[100%] mb-0 p-0 overflow-hidden">
+      <app-friend-request-main/>
+    </div>
   </div>
-  <div class="w-[100%]">
-    <app-friend-request-main />
-  </div>
-</div>
+  

@@ -17,25 +17,29 @@
 
   <!-- Button Section -->
   <div class="px-4 py-2 mt-auto"> <!-- mt-auto pushes the button section to the bottom -->
-    <div *ngIf="isInvitationSent" class="mb-2">
-      <p class="text-[#65676b]">Request sent</p>
+    <div *ngIf="accepted" class="mb-2">
+      <p class="text-[#65676b]">Accepted</p>
     </div>
-    <div class="flex items-center">
+    <div *ngIf="showReject" class="mb-2">
+      <p class="text-[#65676b]">Rejected</p>
+    </div>
+    <div 
+    *ngIf="!accepted && !showReject"
+    class="grid items-center gap-y-2">
       <button
         hlmBtn
-        *ngIf="!isInvitationSent"
         class="w-full bg-[#ebf5ff] text-[#0067d2] hover:bg-[#dfe9f2] py-2 rounded-md"
-        (click)="addFriend()"
+        (click)="acceptFriend()"
       >
-        Add Friend
+        Confirm
       </button>
       <button
         hlmBtn
-        *ngIf="isInvitationSent"
+        
         class="w-full bg-[#e4e6eb] py-2 rounded-md hover:bg-[#d8dadf] text-black"
-        (click)="cancelFriend()"
+        (click)="rejectFriend()"
       >
-        Cancel
+        Delete
       </button>
     </div>
   </div>

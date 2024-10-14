@@ -26,16 +26,16 @@ export class friendshipsService {
   }
 
   AcceptFriendRequest(
-    friendshipData: FriendshipRequest
+    fromUserId : string,  toUserId : string
   ): Observable<string> {
     const formData = new FormData();
-    formData.append('fromUserId', friendshipData.userFromId);
-    formData.append('toUserId', friendshipData.userToId);
+    formData.append('fromUserId', fromUserId);
+    formData.append('toUserId', toUserId);
     return this.http.post<string>(this.apiUrl+"/accept", formData);
   }
 
-  GetFriendRequests( userId: string): Observable<UserFriendsResponseList[]> {
-    return this.http.get<UserFriendsResponseList[]>(this.apiUrl+"/requests/"+userId);
+  GetFriendRequests( userId: string): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl+"/requests/"+userId);
   }
 
   GetUsersFriends( userId: string): Observable<UserFriendsResponseList[]> {

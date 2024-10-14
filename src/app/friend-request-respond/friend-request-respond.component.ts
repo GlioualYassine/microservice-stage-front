@@ -26,7 +26,7 @@ import { friendshipsService } from '../services/friendship.service';
 import { FriendshipRequest } from '../models/FriendshipRequest';
 
 @Component({
-  selector: 'app-friend-rquest-item',
+  selector: 'app-friend-request-respond',
   standalone: true,
   imports: [
     BrnCommandImports,
@@ -47,71 +47,38 @@ import { FriendshipRequest } from '../models/FriendshipRequest';
     HlmButtonDirective,
     CommonModule,
   ],
-  templateUrl: './friend-rquest-item.component.html',
-  styleUrl: './friend-rquest-item.component.css',
+  templateUrl: './friend-request-respond.component.html',
+  styleUrl: './friend-request-respond.component.css',
 })
-export class FriendRquestItemComponent implements OnInit {
+export class FriendRequestRespondComponent implements OnInit {
   @Input() user!: UserResponse;
-
+  accepted = false;
+  showReject = false;
   CurrentUser: any = JSON.parse(localStorage.getItem('user') || '{}');
-  isInvitationSent = false;
   constructor(private friendShipService: friendshipsService) {}
   ngOnInit(): void {
-    this.friendShipService
-      .checkExistingFriendRequest(this.CurrentUser.id, this.user.id)
-      .subscribe({
-        next: (data) => {
-          //console.log("data",data);
-          this.isInvitationSent = data;
-        },
-        error: (error) => {
-          console.log('error', error);
-        },
-      });
+    
   }
-  addFriend = () => {
-    //console.log('add friend');
-    //alert('add friend');
-
-    let FriendshipRequest: FriendshipRequest = {
-      userFromId: this.CurrentUser.id,
-      userToId: this.user.id,
-      status: 'PENDING',
-      createdAt: new Date(),
-    };
-
-    this.friendShipService.sendFriendRequest(FriendshipRequest).subscribe({
-      next: (data) => {
-        //console.log("data",data);
-        this.isInvitationSent = true;
-      },
-      error: (error) => {
-        console.log('error', error);
-      },
-    });
-  };
+  
 
   acceptFriend = () => {
     console.log('accept friend');
-    alert('accept friend');
+    this.friendShipService.AcceptFriendRequest(this.CurrentUser.id, this.user.id).subscribe({
+      next: (data) => {
+        console.log('data', data);
+        this.accepted = true;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    })
   };
 
   rejectFriend = () => {
     console.log('reject friend');
-    alert('reject friend');
+    //alert('reject friend');
+    this.showReject = true;
   };
 
-  cancelFriend = () => {
-    console.log('cancel friend');
-    this.friendShipService.cancelSentFriendRequest(this.CurrentUser.id, this.user.id).subscribe({
-      next: (data) => {
-        console.log("data",data);
-        this.isInvitationSent = false;
-      },
-      error: (error) => {
-        console.log('error', error);
-      },
-    })
-    
-  };
+  
 }
