@@ -17,10 +17,10 @@ export class MyRequestFriendMainComponent  implements OnInit{
   currentUserId : any = JSON.parse(localStorage.getItem('user') || '{}');
   constructor(private friendShipService : friendshipsService) { }
   ngOnInit(): void {
-    this.friendShipService.GetFriendRequests(this.currentUserId.id).subscribe({
+    this.friendShipService.GetFriendRequestsReceived(this.currentUserId.id).subscribe({
       next: (data : any) => {
         this.users = data;
-        console.log(data)
+        console.log("data",data)
       },
       error: (error: any) => {
         console.log(error);

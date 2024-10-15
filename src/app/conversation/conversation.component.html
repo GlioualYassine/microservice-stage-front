@@ -1,52 +1,50 @@
 <hlm-dialog-header>
-    <h3 hlmDialogTitle>Chat with {{ username }}</h3>
-  </hlm-dialog-header>
-  <div class="py-4 grid gap-4 w-[500px]">
-    <!-- Messages Area -->
-    <div class="conversation-messages">
-      <hlm-scroll-area class="w-[95%] h-[278px]">
-        <div *ngFor="let message of messages" class="pr-3 message-item flex flex-col mt-2"
-          [ngClass]="message.sender === 'me' ? 'items-end' : 'items-start'">
-          
-          <!-- Sender Name -->
-          <span
-            class="message-sender font-bold"
-            [ngClass]="message.sender === 'me' ? 'text-right text-blue-500' : 'text-left text-gray-800'">
-            {{ message.sender === 'me' ? 'You' : username }}
-          </span>
-          
-          <!-- Message Bubble -->
-          <div
-            [ngClass]="message.sender === 'me' ? 'bg-blue-100' : 'bg-gray-200'"
-            class="rounded-lg p-2 max-w-xs text-sm shadow-md">
-            <p>{{ message.content }}</p>
-            <!-- Timestamp -->
-            <span class="text-gray-500 text-xs mt-1 block">{{ message.timestamp | date:'shortTime' }}</span>
-          </div>
+  <h3 hlmDialogTitle>Chat with {{ username }}</h3>
+</hlm-dialog-header>
+<div class="py-4 grid gap-4 w-[500px]">
+  <!-- Messages Area -->
+  <div class="conversation-messages">
+    <hlm-scroll-area #scrollContainer class="w-[95%] h-[278px] overflow-y-auto">
+      <div *ngFor="let message of messages" class="pr-3 message-item flex flex-col mt-2"
+        [ngClass]="message.senderId === CurrentUser.id ? 'items-end' : 'items-start'">
+        
+        <!-- Sender Name -->
+        <span
+          class="message-sender font-bold"
+          [ngClass]="message.senderId === CurrentUser.id ? 'text-right text-blue-500' : 'text-left text-gray-800'">
+          {{ message.senderId === CurrentUser.id ? 'You' : username }}
+        </span>
+        
+        <!-- Message Bubble -->
+        <div
+          [ngClass]="message.senderId === CurrentUser.id ? 'bg-blue-100' : 'bg-gray-200'"
+          class="rounded-lg p-2 max-w-xs text-sm shadow-md">
+          <p>{{ message.message }}</p>
+          <!-- Timestamp -->
+          <span class="text-gray-500 text-xs mt-1 block">{{ message.timestamp | date:'shortTime' }}</span>
         </div>
-      </hlm-scroll-area>
+      </div>
+    </hlm-scroll-area>
+  </div>
+
+  <!-- Input Area for New Message -->
+  <div class="new-message flex items-center gap-x-4 mt-4">
+    <div class="w-[75%]">
+      <input
+        type="text"
+        placeholder="Type a message..."
+        class="w-full p-2 rounded border"
+        [(ngModel)]="newMessage"
+        hlmInput
+      />
     </div>
-  
-    <!-- Input Area for New Message -->
-    <div class="new-message flex items-center gap-x-4 mt-4">
-      <div class="w-[75%]">
-        <input
-          type="text"
-          placeholder="Type a message..."
-          class="w-full p-2 rounded border"
-          [(ngModel)]="newMessage"
-          hlmInput
-        />
-      </div>
-      <div class="w-[30%]">
-        <button
-          hlmBtn
-          class="bg-blue-500 text-white p-2 rounded-md w-20"
-          (click)="sendMessage()"
-        >
-          Send
-        </button>
-      </div>
+    <div class="w-[30%]">
+      <button
+        hlmBtn
+        class="bg-blue-500 text-white p-2 rounded-md w-20"
+        (click)="sendMessage()">
+        Send
+      </button>
     </div>
   </div>
-  
+</div>

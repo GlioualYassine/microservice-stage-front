@@ -7,8 +7,9 @@
       <hlm-avatar variant="large">
         <img [src]="avatar" alt="{{ username }}'s avatar" hlmAvatarImage />
         <span class="bg-[#FD005B] text-white" hlmAvatarFallback>{{
-          username[0] + username[1]
+          username[0] + username[1] 
         }}</span>
+        
       </hlm-avatar>
 
       <!-- Username and Status -->
@@ -28,6 +29,9 @@
   <hlm-dialog-content class="w-[1000px]" *brnDialogContent="let ctx">
     <app-conversation class="w-[1000px]"
       [username]="username"
+      [avatar]="avatar"
+      [status]="status"
+      [id]="id"
    />
   </hlm-dialog-content>
 </hlm-dialog>

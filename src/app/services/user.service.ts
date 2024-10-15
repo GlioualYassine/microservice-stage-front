@@ -16,5 +16,9 @@ export class UserService{
         return this.http.get<UserResponse[]>(this.apiUrl+`/all/${id}`);
     }
 
+    getUserFriendList(id : string): Observable<UserResponse[]> {
+        return this.http.get<UserResponse[]>(this.apiUrl+`/friends/${id}`);
+    }
+
     
 }

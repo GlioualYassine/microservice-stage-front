@@ -34,8 +34,12 @@ export class friendshipsService {
     return this.http.post<string>(this.apiUrl+"/accept", formData);
   }
 
-  GetFriendRequests( userId: string): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl+"/requests/"+userId);
+  GetFriendRequestsReceived( userId: string): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl+"/requests/received/"+userId);
+  }
+
+  GetFriendRequestsSent( userId: string): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl+"/requests/sent/"+userId);
   }
 
   GetUsersFriends( userId: string): Observable<UserFriendsResponseList[]> {
