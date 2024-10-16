@@ -1,24 +1,16 @@
-<div class="w-full h-auto bg-slate-200 mt-[100px] overflow-hidden">
-    <!-- Section: Friend Requests -->
-    <div class="pt-[50px] pl-[350px] z-[60] mb-0">
-      <h2 class="font-bold text-[20px] mb-2">Friend Requests</h2>
-    </div>
-    <div class="w-[100%] pl-[370px] px-20 overflow-hidden">
-      <app-my-request-friend-main></app-my-request-friend-main>
-    </div>
-
-  
-    <!-- Séparateur -->
-<div class="pl-11">
-        <brn-separator hlmSeparator class="w-full bg-slate-400 m-0 px-4 overflow-hidden"></brn-separator>
-    
-</div>  
-    <!-- Section: People You May Know -->
-    <div class="pl-[350px] z-[60]  overflow-hidden">
-      <h2 class="font-bold text-[20px] mb-2">People you may know</h2>
-    </div>
-    <div class="w-[100%] mb-0 p-0 overflow-hidden">
-      <app-friend-request-main/>
-    </div>
+<div class=" h-screen bg-slate-200 flex flex-col overflow-hidden ml-[320px]">
+  <!-- Section: Friend Requests -->
+  <div class="w-full h-[56%] p-8 overflow-y-auto flex flex-col items-start ">
+    <h2 class="font-bold text-2xl mb-4 ml-11">My Friend Requests</h2>
+    <app-my-request-friend-main class="w-full"></app-my-request-friend-main>
   </div>
-  
+
+  <!-- Séparateur horizontal -->
+  <div class="w-full  h-[2px] bg-slate-400"></div>
+
+  <!-- Section: People You May Know -->
+  <div class=" w-full h-1/2 p-8 overflow-y-auto flex flex-col items-start">
+    <h2 class="font-bold text-2xl mb-4 ml-11">People You May Know</h2>
+    <app-friend-request-main class="w-full"></app-friend-request-main>
+  </div>
+</div>

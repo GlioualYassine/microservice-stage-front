@@ -1,3 +1,14 @@
-
-
-<router-outlet />
+<div class="flex rounded-md w-full h-screen justify-between bg-slate-200">
+    <!-- Left Sidebar -->
+    <div class="w-[25%] bg-slate-200 fixed h-screen top-0 left-0">
+      <app-left-side-bar></app-left-side-bar>
+    </div>
+  
+    <!-- Main Content (changeable) -->
+    <div class=" w-full h-screen bg-slate-200">
+      <router-outlet></router-outlet>
+    </div>
+  
+   
+  </div>
+  

@@ -3,6 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
 import { FriendRequestSendComponent } from './friend-request-send/friend-request-send.component';
+import { NotifComponent } from './notif/notif.component';
 
 export const routes: Routes = [
     {
@@ -21,5 +22,9 @@ export const routes: Routes = [
     {
         path:"friendRequests",
         component: FriendRequestSendComponent
+    },
+    {
+        path:"notifications",
+        component: NotifComponent
     },
 ];

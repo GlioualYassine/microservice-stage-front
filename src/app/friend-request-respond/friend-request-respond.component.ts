@@ -24,7 +24,9 @@ import { CommonModule } from '@angular/common';
 import { UserResponse } from '../models/UserResponse';
 import { friendshipsService } from '../services/friendship.service';
 import { FriendshipRequest } from '../models/FriendshipRequest';
+import { BrnSeparatorComponent } from '@spartan-ng/ui-separator-brain';
 
+import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
 @Component({
   selector: 'app-friend-request-respond',
   standalone: true,
@@ -46,6 +48,7 @@ import { FriendshipRequest } from '../models/FriendshipRequest';
     HlmCardFooterDirective,
     HlmButtonDirective,
     CommonModule,
+    
   ],
   templateUrl: './friend-request-respond.component.html',
   styleUrl: './friend-request-respond.component.css',

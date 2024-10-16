@@ -6,12 +6,11 @@ import { UserService } from '../services/user.service';
 import { UserResponse } from '../models/UserResponse';
 import { CommonModule } from '@angular/common';
 import { friendshipsService } from '../services/friendship.service';
-import { LayoutComponent } from "../layout/layout.component";
 
 @Component({
   selector: 'app-friend-request-main',
   standalone: true,
-  imports: [CommonModule, LeftSideBarComponent, FriendRquestItemComponent, HeaderComponent, LayoutComponent],
+  imports: [CommonModule, LeftSideBarComponent, FriendRquestItemComponent, HeaderComponent],
   templateUrl: './friend-request-main.component.html',
   styleUrl: './friend-request-main.component.css'
 })

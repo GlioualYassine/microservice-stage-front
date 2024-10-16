@@ -1,52 +1,80 @@
-<nav class="space-y-6 mt-10">
-    <!-- Logo ou titre de la sidebar -->
-    <div class="flex items-center space-x-2">
-      <span class="text-xl font-bold">MyApp</span>
+<nav class="space-y-6 pt-10 bg-gray-800 text-gray-300 h-screen">
+  <div class="flex items-center space-x-4 px-4">
+    <div class="h-20 w-24">
+      <img src="assets/images/logo.jpg" alt="My Image" class="rounded-full border-2 border-gray-600" />
     </div>
-    
-    <!-- Liens de navigation -->
-    <ul class="space-y-4">
-      <li>
-        <a href="/home" class="flex items-center space-x-2 hover:bg-gray-200 p-2 rounded-lg">
-            <ng-icon name="octHome" size="20" class="mt-[0.5px] "></ng-icon>
-          <span>Home</span>
-        </a>
-      </li>
-      <li>
-        <a href="/profile" class="flex items-center space-x-2 hover:bg-gray-200 p-2 rounded-lg">
-            <ng-icon name="octPerson" size="20" class="mt-[0.5px] "></ng-icon>
-          <span>Profile</span>
-        </a>
-      </li>
-      <li>
-        <a href="/messages" class="flex items-center space-x-2 hover:bg-gray-200 p-2 rounded-lg">
-            <ng-icon name="octCommentDiscussion" size="20" class="mt-[0.5px] "></ng-icon>
-          <span>Messages</span>
-        </a>
-      </li>
-      <li>
-        <a href="/notifications" class="flex items-center space-x-2 hover:bg-gray-200 p-2 rounded-lg">
-            <ng-icon name="octBell" size="20" class="mt-[0.5px] "></ng-icon>
-          <span>Notifications</span>
-        </a>
-      </li>
-      <li>
-        <a href="/friendRequests" class="flex items-center space-x-2 hover:bg-gray-200 p-2 rounded-lg">
-            <ng-icon name="octPersonAdd" size="20" class="mt-[0.5px] "></ng-icon>
-          <span>Friend Requets</span>
-        </a>
-      </li>
-      <li>
-        <a href="/settings" class="flex items-center space-x-2 hover:bg-gray-200 p-2 rounded-lg">
-            <ng-icon name="octGear" size="20" class="mt-[0.5px] "></ng-icon>
-          <span>Settings</span>
-        </a>
-      </li>
-      <li>
-        <a href="/logout" class="flex items-center space-x-2 hover:bg-gray-200 p-2 rounded-lg">
-            <ng-icon name="octSignOut" size="20" class="mt-[0.5px] "></ng-icon>
-          <span>Logout</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+    <h3 class="font-bold text-2xl mt-5 text-white">NovaWing</h3>
+  </div>
+
+  <ul class="space-y-4 px-4">
+    <li>
+      <a 
+        routerLink="/home" 
+        [class.bg-gray-700]="isRouteActive('/home')" 
+        class="flex items-center space-x-3 hover:bg-gray-700 p-3 rounded-lg transition-color cursor-pointer">
+        <ng-icon name="octHome" size="20" class="text-white"></ng-icon>
+        <span class="text-lg">Home</span>
+      </a>
+    </li>
+
+    <li>
+      <a 
+        routerLink="/profile" 
+        [class.bg-gray-700]="isRouteActive('/profile')" 
+        class="flex items-center space-x-3 hover:bg-gray-700 p-3 rounded-lg transition-colors cursor-pointer">
+        <ng-icon name="octPerson" size="20" class="text-white"></ng-icon>
+        <span class="text-lg">Profile</span>
+      </a>
+    </li>
+
+    <li>
+      <a 
+        routerLink="/messages" 
+        [class.bg-gray-700]="isRouteActive('/messages')" 
+        class="flex items-center space-x-3 hover:bg-gray-700 p-3 rounded-lg transition-colors cursor-pointer">
+        <ng-icon name="octCommentDiscussion" size="20" class="text-white"></ng-icon>
+        <span class="text-lg">Messages</span>
+      </a>
+    </li>
+
+    <li>
+      <a 
+        routerLink="/notifications" 
+        [class.bg-gray-700]="isRouteActive('/notifications')" 
+        class="flex items-center space-x-3 hover:bg-gray-700 p-3 rounded-lg transition-colors cursor-pointer">
+        <ng-icon name="octBell" size="20" class="text-white"></ng-icon>
+        <span class="text-lg">Notifications</span>
+      </a>
+    </li>
+
+    <li>
+      <a 
+        routerLink="/friendRequests" 
+        [class.bg-gray-700]="isRouteActive('/friendRequests')" 
+        class="flex items-center space-x-3 hover:bg-gray-700 p-3 rounded-lg transition-colors cursor-pointer">
+        <ng-icon name="octPersonAdd" size="20" class="text-white"></ng-icon>
+        <span class="text-lg">Friend Requests</span>
+      </a>
+    </li>
+
+    <li>
+      <a 
+        routerLink="/settings" 
+        [class.bg-gray-700]="isRouteActive('/settings')" 
+        class="flex items-center space-x-3 hover:bg-gray-700 p-3 rounded-lg transition-colors cursor-pointer">
+        <ng-icon name="octGear" size="20" class="text-white"></ng-icon>
+        <span class="text-lg">Settings</span>
+      </a>
+    </li>
+
+    <li>
+      <a 
+        routerLink="/logout" 
+        [class.bg-gray-700]="isRouteActive('/logout')" 
+        class="flex items-center space-x-3 hover:bg-gray-700 p-3 rounded-lg transition-colors cursor-pointer">
+        <ng-icon name="octSignOut" size="20" class="text-white"></ng-icon>
+        <span class="text-lg">Logout</span>
+      </a>
+    </li>
+  </ul>
+</nav>
