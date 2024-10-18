@@ -1,29 +1,16 @@
 <div class="w-full flex">
-  
-  <div class=" fixed top-0  bg-white w-[40%] h-screen ml-[30%] mx-auto border-solid border-black">
-   <div class="p-3">
-     <h3 class="text-[20px] font-[500] ">Notifications</h3>
-   </div>
-  </div>
-    <!-- Notifs (postes) -->
-    <div class=" fixed top-20 overflow-auto  bg-white w-[40%] h-screen ml-[30%] mx-auto">
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      <app-notif-item/>
-      
+  <div
+    class="fixed top-0 bg-white w-[40%] h-screen ml-[30%] mx-auto border-solid border-black"
+  >
+    <div class="p-3">
+      <h3 class="text-[20px] font-[500]">Notifications</h3>
     </div>
   </div>
-  
+  <!-- Notifs (postes) -->
+  <div
+    *ngFor="let notif of notifications"
+    class="fixed top-20 overflow-auto bg-white w-[40%] h-screen ml-[30%] mx-auto"
+  >
+    <app-notif-item [notif]="notif" />
+  </div>
+</div>
