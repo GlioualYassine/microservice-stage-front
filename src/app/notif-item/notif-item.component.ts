@@ -5,14 +5,14 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {octCheckCircle,octTrash} from '@ng-icons/octicons';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import { NgIconComponent } from '@ng-icons/core';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-notif-item',
   standalone: true,
-  imports: [HlmButtonDirective,HlmIconComponent,NgIconComponent,DatePipe],
+  imports: [HlmButtonDirective,HlmIconComponent,NgIconComponent,DatePipe,CommonModule],
   templateUrl: './notif-item.component.html',
   styleUrl: './notif-item.component.css',
   providers: [

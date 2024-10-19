@@ -83,8 +83,16 @@
 
   <!-- Interaction Buttons: Like, Comment, Share -->
   <div class="flex justify-around items-center border-y px-4 py-2 mt-3">
-    <div class="flex items-center gap-2 cursor-pointer hover:scale-105">
-      <ng-icon name="bootstrapHeart" size="20" class="text-gray-500"></ng-icon>
+    <div
+      class="flex items-center gap-2 cursor-pointer hover:scale-105"
+      (click)="toggleLike(post)"
+    >
+      <ng-icon
+        [name]="hasLiked(post) ? 'bootstrapHeartFill' : 'bootstrapHeart'"
+        size="20"
+        [class.text-red-500]="hasLiked(post)"
+        class="text-gray-500"
+      ></ng-icon>
       <p class="text-gray-600 font-bold">Like ({{ post.likes.length }})</p>
     </div>
 
@@ -165,22 +173,31 @@
   </div>
 </div>
 
-
 <!-- Modal pour afficher tous les commentaires -->
-<div *ngIf="currentPost" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+<div
+  *ngIf="currentPost"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+>
   <div class="bg-white w-full max-w-2xl h-3/4 p-6 rounded-lg overflow-y-auto">
     <div class="flex justify-between items-center mb-4">
       <h4 class="text-xl font-bold">Tous les Commentaires</h4>
       <button (click)="closeDialog()" class="text-red-500">Fermer</button>
     </div>
 
-    <div *ngFor="let comment of currentPost.comments; trackBy: trackByCommentId" class="mb-4">
+    <div
+      *ngFor="let comment of currentPost.comments; trackBy: trackByCommentId"
+      class="mb-4"
+    >
       <div class="flex items-start gap-3">
         <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
         <div class="flex-1">
           <div class="flex justify-between items-center">
-            <p class="text-sm font-semibold text-gray-800">{{ comment.userId.username }}</p>
-            <p class="text-xs text-gray-500">{{ comment.createdAt | date: 'short' }}</p>
+            <p class="text-sm font-semibold text-gray-800">
+              {{ comment.userId.username }}
+            </p>
+            <p class="text-xs text-gray-500">
+              {{ comment.createdAt | date : "short" }}
+            </p>
           </div>
           <p class="text-sm text-gray-600 mt-1">{{ comment.content }}</p>
         </div>

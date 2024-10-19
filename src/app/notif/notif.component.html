@@ -8,9 +8,11 @@
   </div>
   <!-- Notifs (postes) -->
   <div
-    *ngFor="let notif of notifications"
-    class="fixed top-20 overflow-auto bg-white w-[40%] h-screen ml-[30%] mx-auto"
-  >
-    <app-notif-item [notif]="notif" />
-  </div>
+  class="fixed top-20 overflow-auto bg-white w-[40%] h-screen ml-[30%] mx-auto"
+>
+  <ng-container *ngFor="let notif of notifications">
+    <app-notif-item [notif]="notif"></app-notif-item>
+  </ng-container>
+</div>
+
 </div>

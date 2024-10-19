@@ -1,4 +1,4 @@
-import { Component, effect, OnInit } from '@angular/core';
+import { Component, effect, Input, OnInit } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -36,10 +36,8 @@ import { CommentService } from '../services/comment.service';
 import { LikeService } from '../services/like.service';
 
 @Component({
-  selector: 'app-post',
+  selector: 'app-myposts-item',
   standalone: true,
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css'],
   imports: [
     CommonModule,
     FormsModule,
@@ -65,9 +63,11 @@ import { LikeService } from '../services/like.service';
       octComment,
     }),
   ],
+  templateUrl: './myposts-item.component.html',
+  styleUrl: './myposts-item.component.css',
 })
-export class PostComponent implements OnInit {
-  posts: PostResponse[] = [];
+export class MypostsItemComponent {
+  @Input() posts: PostResponse[] = [];
   User: any = JSON.parse(localStorage.getItem('user') || '{}');
   newComment: string = '';
   currentPost: PostResponse | null = null;
@@ -79,6 +79,18 @@ export class PostComponent implements OnInit {
   openMenuPostId: string | null = null; // Track which post menu is open
   newContent: string = ''; // Store edited content
   editingPost: PostResponse | null = null; // Track the post being edited
+
+  // likes logic
+  userLikesMap = new Map<string, boolean>(); // Stocke si l'utilisateur a liké chaque post
+
+  // Vérifier si l'utilisateur a déjà liké chaque post et remplir la Map
+  initUserLikesMap() {
+    this.posts.forEach((post) => {
+      const hasLiked = this.hasLiked(post);
+      this.userLikesMap.set(post.id, hasLiked);
+    });
+  }
+
   constructor(
     private postService: PostService,
     private postStore: PostStore,
@@ -86,7 +98,6 @@ export class PostComponent implements OnInit {
     private likeService: LikeService // Injection du LikeService
   ) {
     effect(() => {
-      this.posts = this.postStore.posts();
       this.posts = this.sortPostsDescending(this.posts);
       //console.log('Posts mis à jour :', this.posts);
       this.posts.forEach((post) => {
@@ -117,6 +128,9 @@ export class PostComponent implements OnInit {
     this.posts.forEach((post) => {
       post.comments = this.sortCommentsDescending(post.comments);
     });
+
+    // Initialiser la Map avec l'état des likes de l'utilisateur pour chaque post
+    this.initUserLikesMap();
   }
 
   // Basculer l'affichage des commentaires pour un post spécifique
@@ -213,7 +227,7 @@ export class PostComponent implements OnInit {
     if (this.newContent.trim()) {
       post.content = this.newContent.trim();
 
-      let editedPost : PostResponse = {
+      let editedPost: PostResponse = {
         id: post.id,
         content: post.content,
         user: post.user,
@@ -222,14 +236,12 @@ export class PostComponent implements OnInit {
         createdAt: post.createdAt,
         updatedAt: new Date().toISOString(),
         image: post.image,
-      }
+      };
 
-      this.postService
-        .updatePost(post.id, editedPost)
-        .subscribe(() => {
-          this.editingPost = null;
-          this.newContent = '';
-        });
+      this.postService.updatePost(post.id, editedPost).subscribe(() => {
+        this.editingPost = null;
+        this.newContent = '';
+      });
     }
   }
 
@@ -265,28 +277,30 @@ export class PostComponent implements OnInit {
     return comment.id;
   }
 
-
   // Gestion des likes
   toggleLike(post: PostResponse) {
-    const existingLike = post.likes.find((like) => like.userId === this.User.id);
-
+    const existingLike = post.likes.find(
+      (like) => like.userId === this.User.id
+    );
+  
     if (existingLike) {
       // Si l'utilisateur a déjà liké, on supprime le like
       this.likeService.removeLike(existingLike.id).subscribe(() => {
         post.likes = post.likes.filter((like) => like.id !== existingLike.id);
+        this.userLikesMap.set(post.id, false); // Mettre à jour l'état du like
       });
     } else {
       // Si l'utilisateur n'a pas encore liké, on ajoute un like
       const likeRequest = { userId: this.User.id, postId: post.id };
       this.likeService.addLike(likeRequest).subscribe((newLike) => {
         post.likes.push(newLike);
+        this.userLikesMap.set(post.id, true); // Mettre à jour l'état du like
       });
     }
   }
- // Vérifier si l'utilisateur a liké un post
- hasLiked(post: PostResponse): boolean {
-  return post.likes.some((like) => like.userId === this.User.id);
-}
-
-
+  
+  // Vérifier si l'utilisateur a liké un post en utilisant la Map
+  hasLiked(post: PostResponse): boolean {
+    return this.userLikesMap.get(post.id) || false;
+  }
 }

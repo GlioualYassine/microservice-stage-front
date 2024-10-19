@@ -46,7 +46,7 @@ export class LeftSideBarComponent implements OnInit {
 
   // Méthode qui retourne true si la route actuelle correspond à celle passée en paramètre
   isRouteActive(route: string): boolean {
-    console.log(this.currentRoute);
+    
     return this.currentRoute === route;
   }
 }

@@ -35,13 +35,21 @@ export class NotificationStompService {
 
   // S'abonner à une destination privée ou publique via STOMP
   subscribe(destination: string): Observable<any> {
+    console.log('destination', destination);
     return new Observable((observer) => {
       if (!this.stompClient || !this.connected) {
         console.error("WebSocket connection not established.");
         return;
       }
 
-      const subscription = this.stompClient.subscribe(destination, (message: any) => {
+
+      this.stompClient.subscribe(destination, (message: any) => {
+        console.log("connected to " + destination);
+        observer.next(JSON.parse(message.body));
+      });
+
+      /*const subscription = this.stompClient.subscribe(destination, (message: any) => {
+        console.log("connected to " + destination);
         observer.next(JSON.parse(message.body));
       });
 
@@ -49,7 +57,7 @@ export class NotificationStompService {
       return () => {
         subscription.unsubscribe();
         console.log(`Unsubscribed from ${destination}`);
-      };
+      };*/
     });
   }
 

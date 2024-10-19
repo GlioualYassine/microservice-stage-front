@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
 import { FriendRequestSendComponent } from './friend-request-send/friend-request-send.component';
 import { NotifComponent } from './notif/notif.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -27,4 +28,8 @@ export const routes: Routes = [
         path:"notifications",
         component: NotifComponent
     },
+    {
+        path : "profile",
+        component : ProfileComponent
+    }
 ];

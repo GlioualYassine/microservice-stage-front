@@ -17,7 +17,7 @@ export class NotificationStore {
     const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
     this.notificationService.getAllNotificationssOfUser(currentUser.id).subscribe({
       next: (notifications) => {
-        console.log('Notifications:', notifications);
+        //console.log('Notifications:', notifications);
         this.notifications.set(notifications); // Met à jour le signal avec les posts récupérés
         // Déclenche une mise à jour manuelle dans le composant
         this.notifications.update((currentNotifications) => [...currentNotifications]);

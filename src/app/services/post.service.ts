@@ -17,6 +17,14 @@ export class PostService {
     return this.http.get<PostResponse[]>(this.apiUrl);
   }
 
+  getPostById(postId: string): Observable<PostResponse> {
+    return this.http.get<PostResponse>(`${this.apiUrl}/${postId}`);
+  }
+
+  getPostsByUserId(userId: string): Observable<PostResponse[]> {
+    return this.http.get<PostResponse[]>(`${this.apiUrl}/user/${userId}`);
+  }
+
   // Créer un post
   createPost(postData: PostRequest): Observable<PostResponse> {
     const formData = new FormData();
