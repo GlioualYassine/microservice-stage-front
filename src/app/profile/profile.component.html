@@ -1,6 +1,6 @@
 <div class="w-full flex">
   <div
-    class="fixed overflow-auto  w-[40%] h-screen ml-[30%] mx-auto rounded-t-lg"
+    class="fixed overflow-auto w-[40%] h-screen ml-[30%] mx-auto rounded-t-lg"
   >
     <ng-container class="p-3">
       <div class="bg-white rounded-lg shadow-md">
@@ -11,7 +11,13 @@
               class="w-24 h-24 rounded-full border-4 border-white bg-gray-400"
             >
               <img
-                src="assets/images/default_profile.png"
+                [src]="
+                  currentUser?.imageUrl
+                    ? currentUser.imageUrl.startsWith('data:image')
+                      ? currentUser.imageUrl
+                      : 'data:image/jpeg;base64,' + currentUser.imageUrl
+                    : 'assets/images/default_profile.png'
+                "
                 alt="My Image"
                 class="w-full h-auto object-cover rounded-full"
               />
@@ -25,21 +31,23 @@
             {{ currentUser?.firstName }} {{ currentUser?.lastName }}
           </h1>
           <div class="mt-4"></div>
-          <button  class=" px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-full hover:bg-gray-200">
-            edit profile
+          <button
+            (click)="editProfile()"
+            class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-full hover:bg-gray-200"
+          >
+            Edit Profile
           </button>
         </div>
       </div>
 
       <div>
         <div>
-            <div class="py-6">
-                <h1 class="text-xl font-semibold text-gray-800">My Posts</h1>
-                
-            </div>
-            <div >
-                <app-myposts-item [posts]="posts" />
-            </div>
+          <div class="py-6">
+            <h1 class="text-xl font-semibold text-gray-800">My Posts</h1>
+          </div>
+          <div>
+            <app-myposts-item [User]="currentUser" [posts]="posts" />
+          </div>
         </div>
       </div>
     </ng-container>
@@ -47,52 +55,97 @@
 
   <div>
     <!-- Section Friends -->
-<div class="fixed overflow-auto bg-white w-[27%] right-5 top-10 mx-auto rounded-lg shadow-md">
-    <h1 class="text-xl font-semibold text-gray-800 border-b-2 p-4">Friends</h1>
-  
-    <!-- Liste d'amis réduite -->
-    <div class="p-4">
-      <ul class="space-y-3">
-        <li *ngFor="let friend of friendsPreview" class="flex items-center space-x-4">
-          <div class="w-10 h-10 rounded-full bg-gray-400"></div>
-          <span class="text-gray-700 font-medium">{{ friend.name }}</span>
-        </li>
-      </ul>
-  
-      <!-- Bouton Afficher plus -->
-      <button
-        (click)="openDialog()"
-        class="mt-4 w-full text-center py-2 bg-gray-800 text-white rounded-md hover:bg-gray-950"
-      >
-        show more
-      </button>
-    </div>
-  </div>
-  
-  <!-- Boîte de dialogue pour liste complète -->
-  <div *ngIf="isDialogOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="bg-white w-1/3 rounded-lg p-6">
-      <h2 class="text-lg font-bold text-gray-800 mb-4">Full list of friends</h2>
-  
-      <!-- Liste déroulante avec scroll interne -->
-      <div class="h-64 overflow-y-auto">
+    <div
+      class="fixed overflow-auto bg-white w-[27%] right-5 top-10 mx-auto rounded-lg shadow-md"
+    >
+      <h1 class="text-xl font-semibold text-gray-800 border-b-2 p-4">
+        Friends
+      </h1>
+
+      <!-- Liste d'amis réduite -->
+      <div class="p-4">
         <ul class="space-y-3">
-          <li *ngFor="let friend of friends" class="flex items-center space-x-4">
-            <div class="w-10 h-10 rounded-full bg-gray-400"></div>
-            <span class="text-gray-700 font-medium">{{ friend.name }}</span>
+          <li
+            *ngFor="let friend of friendsPreview"
+            class="flex items-center space-x-4"
+          >
+            <div class="w-10 h-10 rounded-full bg-gray-400">
+              <app-avatar
+                [image]="
+                  friend?.imageUrl
+                    ? friend.imageUrl.startsWith('data:image')
+                      ? friend.imageUrl
+                      : 'data:image/jpeg;base64,' + friend.imageUrl
+                    : 'assets/images/default_profile.png'
+                "
+                class="w-14 h-14"
+              ></app-avatar>
+            </div>
+            <span class="text-gray-700 font-medium">{{ friend.username }}</span>
           </li>
         </ul>
+
+        <!-- Bouton Afficher plus -->
+        <button
+          (click)="openDialog()"
+          class="mt-4 w-full text-center py-2 bg-gray-800 text-white rounded-md hover:bg-gray-950"
+        >
+          show more
+        </button>
       </div>
-  
-      <!-- Bouton Fermer -->
-      <button
-        (click)="closeDialog()"
-        class="mt-4 w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-      >
-        Fermer
-      </button>
+    </div>
+
+    <!-- Boîte de dialogue pour liste complète -->
+    <div
+      *ngIf="isDialogOpen"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+    >
+      <div class="bg-white w-1/3 rounded-lg p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">
+          Full list of friends
+        </h2>
+
+        <!-- Liste déroulante avec scroll interne -->
+        <div class="h-64 overflow-y-auto">
+          <ul class="space-y-3">
+            <li
+              *ngFor="let friend of friends"
+              class="flex items-center space-x-4"
+            >
+              <div class="w-10 h-10 rounded-full bg-gray-400">
+                <app-avatar
+                  [image]="
+                    friend?.imageUrl
+                      ? friend.imageUrl.startsWith('data:image')
+                        ? friend.imageUrl
+                        : 'data:image/jpeg;base64,' + friend.imageUrl
+                      : 'assets/images/default_profile.png'
+                  "
+                  class="w-14 h-14"
+                ></app-avatar>
+              </div>
+              <span class="text-gray-700 font-medium">{{
+                friend.username
+              }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bouton Fermer -->
+        <button
+          (click)="closeDialog()"
+          class="mt-4 w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+        >
+          Fermer
+        </button>
+      </div>
     </div>
   </div>
-  
-  </div>
+</div>
+<!-- Affichage du formulaire d'édition comme une popup -->
+<div *ngIf="isEditing">
+  <app-editprofile
+    [currentUser]="currentUser"
+    (close)="closeEditProfile()"
+  ></app-editprofile>
 </div>

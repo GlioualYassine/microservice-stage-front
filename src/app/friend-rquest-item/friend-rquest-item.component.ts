@@ -51,7 +51,7 @@ import { FriendshipRequest } from '../models/FriendshipRequest';
   styleUrl: './friend-rquest-item.component.css',
 })
 export class FriendRquestItemComponent implements OnInit {
-  @Input() user!: UserResponse;
+  @Input() user!: any;
 
   CurrentUser: any = JSON.parse(localStorage.getItem('user') || '{}');
   isInvitationSent = false;

@@ -4,7 +4,16 @@
     <div class="w-full  " >
       <h3 class="flex gap-x-2 items-center">
         <div class="flex gap-x-2">
-          <app-avatar class="w-10 h-10"></app-avatar>
+          <app-avatar
+          [image]="
+            user?.imageUrl
+              ? user.imageUrl.startsWith('data:image')
+                ? user.imageUrl
+                : 'data:image/jpeg;base64,' + user.imageUrl
+              : 'assets/images/default_profile.png'
+          "
+          class="w-14 h-14"
+        ></app-avatar>
           
         </div>
         <button

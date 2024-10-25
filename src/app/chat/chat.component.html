@@ -3,10 +3,7 @@
     <hlm-scroll-area class="w-64  h-screen rounded-md ">
       <div *ngFor="let friend of friendList ; let i index" class= "w-full">
         <app-right-side-bar-item
-          [id]="friend.id"
-          [username]="friend.username"
-          [avatar]="friend.avatar"
-          [status]="friend.status"          
+          [friend]="friend"         
         ></app-right-side-bar-item></div
     ></hlm-scroll-area>
   </div>

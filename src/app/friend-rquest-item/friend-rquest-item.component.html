@@ -1,22 +1,27 @@
-<section
-  class="w-[199px] h-auto flex flex-col bg-white rounded-lg shadow-lg"
->
+<section class="w-[199px] h-auto flex flex-col bg-white rounded-lg shadow-lg">
   <!-- Image Section -->
   <div class="w-full h-[200px]">
     <img
-      src="/assets/images/handsome-man-white-background.jpg"
-      alt="Post Image"
+      [src]="
+        user?.imageUrl
+          ? user.imageUrl.startsWith('data:image')
+            ? user.imageUrl
+            : 'data:image/jpeg;base64,' + user.imageUrl
+          : 'assets/images/default_profile.png'
+      "
+      alt="My Image"
       class="w-full h-full object-cover rounded-t-lg"
     />
   </div>
 
   <!-- Username Section -->
   <div class="px-4 py-2">
-    <p class="font-semibold">{{user.username}}</p>
+    <p class="font-semibold">{{ user.username }}</p>
   </div>
 
   <!-- Button Section -->
-  <div class="px-4 py-2 mt-auto"> <!-- mt-auto pushes the button section to the bottom -->
+  <div class="px-4 py-2 mt-auto">
+    <!-- mt-auto pushes the button section to the bottom -->
     <div *ngIf="isInvitationSent" class="mb-2">
       <p class="text-[#65676b]">Request sent</p>
     </div>

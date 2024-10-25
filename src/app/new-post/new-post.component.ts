@@ -9,6 +9,7 @@ import { AvatarComponent } from '../avatar/avatar.component';
 import { CommonModule } from '@angular/common';
 import { PostRequest } from '../models/PostRequest';
 import { PostStore } from '../signal/PostStore';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-new-post',
@@ -18,13 +19,14 @@ import { PostStore } from '../signal/PostStore';
   providers: [],
   imports: [ReactiveFormsModule, AvatarComponent, CommonModule],
 })
-export class NewPostComponent implements OnInit {
+export class 
+NewPostComponent implements OnInit {
   postForm!: FormGroup;
   selectedImage: File | null = null;
   isDialogOpen: boolean = false;
   successMessage: string = '';
-
-  constructor(private fb: FormBuilder, private postService: PostService , private postStore : PostStore) {}
+  user : any ; 
+  constructor(private fb: FormBuilder, private postService: PostService , private postStore : PostStore , private userService : UserService) {}
 
   ngOnInit() {
     this.postForm = this.fb.group({
@@ -32,6 +34,12 @@ export class NewPostComponent implements OnInit {
       content: [''],
       image: [null],
     });
+
+    this.userService.getUserById(JSON.parse(localStorage.getItem('user') || '{}').id).subscribe({
+      next: (response) => {
+        this.user = response;
+      }
+    })
   }
 
   onImageChange(event: Event) {

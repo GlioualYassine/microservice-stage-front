@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
 import { BrnMenuTriggerDirective } from '@spartan-ng/ui-menu-brain';
@@ -79,4 +79,6 @@ import {
     lucidePlusCircle,
   }),]
 })
-export class AvatarComponent {}
+export class AvatarComponent {
+  @Input() image  : any; 
+}

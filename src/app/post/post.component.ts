@@ -34,6 +34,7 @@ import { AvatarComponent } from '../avatar/avatar.component';
 import { CommentRequest } from '../models/CommentRequest';
 import { CommentService } from '../services/comment.service';
 import { LikeService } from '../services/like.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-post',
@@ -83,13 +84,25 @@ export class PostComponent implements OnInit {
     private postService: PostService,
     private postStore: PostStore,
     private commentService: CommentService,
-    private likeService: LikeService // Injection du LikeService
+    private likeService: LikeService, // Injection du LikeService,
+    private userService : UserService
   ) {
     effect(() => {
       this.posts = this.postStore.posts();
       this.posts = this.sortPostsDescending(this.posts);
       //console.log('Posts mis à jour :', this.posts);
       this.posts.forEach((post) => {
+        userService.getUserById(post.user.id).subscribe({
+          next: (data) => {
+            post.user = data;
+          },
+          error: (error) => {
+            console.error(
+              'Erreur lors du chargement des données utilisateur',
+              error
+            );
+          },
+        })
         post.comments = this.sortCommentsDescending(post.comments);
       });
     });
@@ -114,6 +127,19 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     //this.postStore.loadPosts();
     // Trier les commentaires pour chaque post après le chargement des posts
+    this.userService.getUserById(this.User.id).subscribe({
+      next: (data) => {
+        this.User = data;
+        console.log(this.User);
+      },
+      error: (error) => {
+        console.error(
+          'Erreur lors du chargement des données utilisateur',
+          error
+        );
+      },
+    });
+
     this.posts.forEach((post) => {
       post.comments = this.sortCommentsDescending(post.comments);
     });

@@ -68,7 +68,9 @@ import { LikeService } from '../services/like.service';
 })
 export class MypostsItemComponent {
   @Input() posts: PostResponse[] = [];
-  User: any = JSON.parse(localStorage.getItem('user') || '{}');
+  @Input() User : any ;
+  currentUser : any; 
+  //User: any = JSON.parse(localStorage.getItem('user') || '{}');
   newComment: string = '';
   currentPost: PostResponse | null = null;
   showCommentsMap = new Map<string, boolean>(); // Map pour l'état d'affichage des commentaires
@@ -124,10 +126,16 @@ export class MypostsItemComponent {
   }
   ngOnInit(): void {
     //this.postStore.loadPosts();
+    // Initialiser currentUser
+    console.log("current user", this.User);
+
+    this.currentUser = this.User;
     // Trier les commentaires pour chaque post après le chargement des posts
     this.posts.forEach((post) => {
       post.comments = this.sortCommentsDescending(post.comments);
     });
+
+    
 
     // Initialiser la Map avec l'état des likes de l'utilisateur pour chaque post
     this.initUserLikesMap();

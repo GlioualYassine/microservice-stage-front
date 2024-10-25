@@ -1,0 +1,119 @@
+<div
+  class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+>
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Edit Profile</h2>
+
+    <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700"
+          >First Name</label
+        >
+        <input
+          formControlName="firstName"
+          type="text"
+          class="mt-1 block w-full px-3 py-2 border rounded-md"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Last Name</label>
+        <input
+          formControlName="lastName"
+          type="text"
+          class="mt-1 block w-full px-3 py-2 border rounded-md"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Username</label>
+        <input
+          formControlName="username"
+          type="text"
+          class="mt-1 block w-full px-3 py-2 border rounded-md"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Email</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="mt-1 block w-full px-3 py-2 border rounded-md"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Bio</label>
+        <textarea
+          formControlName="bio"
+          class="mt-1 block w-full px-3 py-2 border rounded-md"
+        ></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700"
+          >Birth Date</label
+        >
+        <input
+          formControlName="birthDate"
+          type="date"
+          class="mt-1 block w-full px-3 py-2 border rounded-md"
+        />
+      </div>
+
+      <!-- Image Section -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700"
+          >Profile Image</label
+        >
+        <!-- Affichage de l'image actuelle ou l'image par défaut -->
+        <img
+          [src]="
+            imageUrl != ''
+              ? imageUrl.startsWith('data:image')
+                ? imageUrl
+                : 'data:image/jpeg;base64,' + imageUrl
+              : 'assets/images/default_profile.png'
+          "
+          alt="Profile Image"
+          class="w-24 h-24 rounded-full mb-2"
+        />
+
+        <!-- Input pour choisir une nouvelle image -->
+        <input
+          type="file"
+          (change)="onImageSelected($event)"
+          accept="image/*"
+          class="mt-2"
+        />
+
+        <!-- Bouton pour supprimer l'image de profil -->
+        <button
+          type="button"
+          (click)="removeProfileImage()"
+          class="mt-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+        >
+          Remove Image
+        </button>
+      </div>
+
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          
+        >
+          Save
+        </button>
+        <button
+          type="button"
+          (click)="onCancel()"
+          class="ml-2 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

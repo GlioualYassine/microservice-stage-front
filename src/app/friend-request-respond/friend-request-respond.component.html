@@ -4,8 +4,14 @@
   <!-- Image Section -->
   <div class="w-full h-[200px]">
     <img
-      src="/assets/images/handsome-man-white-background.jpg"
-      alt="Post Image"
+      [src]="
+        user?.imageUrl
+          ? user.imageUrl.startsWith('data:image')
+            ? user.imageUrl
+            : 'data:image/jpeg;base64,' + user.imageUrl
+          : 'assets/images/default_profile.png'
+      "
+      alt="My Image"
       class="w-full h-full object-cover rounded-t-lg"
     />
   </div>

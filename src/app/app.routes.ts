@@ -5,6 +5,7 @@ import { ActivateAccountComponent } from './activate-account/activate-account.co
 import { FriendRequestSendComponent } from './friend-request-send/friend-request-send.component';
 import { NotifComponent } from './notif/notif.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RegisterComponent } from './register/register.component';
 
 export const routes: Routes = [
     {
@@ -31,5 +32,9 @@ export const routes: Routes = [
     {
         path : "profile",
         component : ProfileComponent
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
     }
 ];

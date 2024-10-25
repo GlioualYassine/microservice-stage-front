@@ -30,6 +30,7 @@ import { WebSocketResponse } from '../models/WebSocketResponse';
 import { MessageResponse } from '../models/MessageResponse';
 import { MessageSocketsService } from '../services/message.sockets.service';
 import { ApiResponse } from '../models/ApiResponse';
+import { AvatarComponent } from "../avatar/avatar.component";
 
 @Component({
   selector: 'app-right-side-bar-item',
@@ -53,15 +54,16 @@ import { ApiResponse } from '../models/ApiResponse';
     HlmLabelDirective,
     HlmInputDirective,
     FormsModule,
-  ],
+    AvatarComponent
+],
   templateUrl: './right-side-bar-item.component.html',
   styleUrl: './right-side-bar-item.component.css',
 })
-export class RightSideBarItemComponent  {
-  @Input() id!: any;
-  @Input() username!: any;
-  @Input() avatar!: any;
-  @Input() status!: any;
+export class RightSideBarItemComponent implements OnInit  {
+  ngOnInit(): void {
+    console.log("friend" , this.friend)
+  }
+  @Input() friend: any;
   
-  
+  status : string = "offline";
 }

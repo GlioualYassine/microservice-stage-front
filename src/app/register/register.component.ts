@@ -22,11 +22,10 @@ import {
   HlmTabsListComponent,
   HlmTabsTriggerDirective,
 } from '@spartan-ng/ui-tabs-helm';
-import { AppComponent } from '../app.component';
 import { AlertService } from '../services/alert.service';
-
+import { AppComponent } from '../app.component';
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [
     HlmTabsComponent,
@@ -48,26 +47,25 @@ import { AlertService } from '../services/alert.service';
   host: {
     class: 'block w-full max-w-lg',
   },
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css'
 })
-export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
-  registerForm!: FormGroup;
+export class RegisterComponent implements OnInit {
 
+  registerForm!: FormGroup;
+  
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private appComponent : AppComponent,
-    private alertService : AlertService
+    private alertService: AlertService, // Inject the AlertService,
+    private appComponent: AppComponent // Injection du composant parent pour gérer l'alerte
+
+
   ) {}
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-    });
+   
 
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -77,33 +75,26 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // Méthode pour gérer la soumission du formulaire de login
-  onLogin(): void {
-    if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe(
+  // Méthode pour gérer la soumission du formulaire de register
+  onRegister(): void {
+    if (this.registerForm.valid) {
+      this.authService.register(this.registerForm.value).subscribe(
         (response) => {
-          console.log('Login successful', response);
-          localStorage.setItem('token', response.data.token); // Stockage du token dans le localStorage
-          localStorage.setItem('user', JSON.stringify(response.data.user)); // Stockage de l'utilisateur dans le localStorage
-          this.router.navigate(['/home']); // Redirection après le login
+          console.log('Registration successful', response);
+          this.alertService.setAlert('Success! Please check your email to activate your account.', 'success');
+          this.router.navigate(['/login']); // Redirection après inscription
         },
         (error) => {
-          console.error('Login error', error.error);
-          if(error.error.buisnessErrorCode == 303){
-          //  this.appComponent.showAlert('Account not activated! Please check your email to activate your account.'); // Afficher l'alerte
-            this.alertService.setAlert('Account not activated! Please check your email to activate your account.', 'danger');
-
-          }
-          else
-           // this.appComponent.showAlert('Login failed! Please check your credentials.'); // Afficher l'alerte
-            this.alertService.setAlert('Login failed! Please check your credentials.', 'danger');
-
+          console.error('Registration error', error);
+          this.alertService.setAlert('Registration failed. Please try again.', 'danger');
         }
       );
+    } else {
+      this.alertService.setAlert('Please fill in the form correctly.', 'warning');
     }
   }
 
-  goToRegister(){
-    this.router.navigate(['/register']);
+  goToLogin(){
+    this.router.navigate(['/login']);
   }
 }

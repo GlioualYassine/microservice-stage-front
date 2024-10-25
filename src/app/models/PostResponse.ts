@@ -1,11 +1,7 @@
 export interface PostResponse {
     id: string;
     content: string;
-    user: {
-      id: number;
-      username: string;
-      email: string;
-    };
+    user: any
     comments: CommentResponse[];
     likes:  LikeResponse[];
     createdAt: string;

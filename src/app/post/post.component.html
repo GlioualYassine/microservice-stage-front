@@ -5,7 +5,16 @@
   <!-- Header with Avatar and Three Dots Menu -->
   <div class="p-4 flex justify-between items-center">
     <div class="flex items-center gap-4">
-      <app-avatar src="post.user.avatar" class="w-12 h-12"></app-avatar>
+      <app-avatar
+        [image]="
+          post.user?.imageUrl
+            ? post.user.imageUrl.startsWith('data:image')
+              ? post.user.imageUrl
+              : 'data:image/jpeg;base64,' + post.user.imageUrl
+            : 'assets/images/default_profile.png'
+        "
+        class="w-14 h-14"
+      ></app-avatar>
       <div>
         <h3 class="font-semibold text-lg">{{ post.user.username }}</h3>
         <p class="text-sm text-gray-500">
@@ -124,7 +133,18 @@
       class="mb-4"
     >
       <div class="flex items-start gap-3">
-        <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
+        <div class="w-10 h-10 bg-gray-300 rounded-full">
+          <app-avatar
+          [image]="
+            User?.imageUrl
+              ? User.imageUrl.startsWith('data:image')
+                ? User.imageUrl
+                : 'data:image/jpeg;base64,' + User.imageUrl
+              : 'assets/images/default_profile.png'
+          "
+          class="w-14 h-14"
+        ></app-avatar>
+        </div>
         <div class="flex-1">
           <div class="flex justify-between items-center">
             <p class="text-sm font-semibold text-gray-800">
@@ -158,7 +178,18 @@
 
   <!-- Add New Comment Field -->
   <div class="p-4 border-t bg-white flex gap-3 items-center rounded-b-lg">
-    <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
+    <div class="w-10 h-10 bg-gray-300 rounded-full">
+      <app-avatar
+        [image]="
+          User?.imageUrl
+            ? User.imageUrl.startsWith('data:image')
+              ? User.imageUrl
+              : 'data:image/jpeg;base64,' + User.imageUrl
+            : 'assets/images/default_profile.png'
+        "
+        class="w-14 h-14"
+      ></app-avatar>
+    </div>
     <input
       [(ngModel)]="newComment"
       placeholder="Ajouter un commentaire..."
@@ -178,7 +209,7 @@
   *ngIf="currentPost"
   class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
 >
-  <div class="bg-white w-full max-w-2xl h-3/4 p-6 rounded-lg overflow-y-auto">
+  <div class="bg-white w-full max-w-2xl h-3/4 p-6 rounded-lg overflow-y-auto z-50">
     <div class="flex justify-between items-center mb-4">
       <h4 class="text-xl font-bold">Tous les Commentaires</h4>
       <button (click)="closeDialog()" class="text-red-500">Fermer</button>
@@ -189,7 +220,18 @@
       class="mb-4"
     >
       <div class="flex items-start gap-3">
-        <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
+        <div class="w-10 h-10 bg-gray-300 rounded-full">
+          <app-avatar
+          [image]="
+            User?.imageUrl
+              ? User.imageUrl.startsWith('data:image')
+                ? User.imageUrl
+                : 'data:image/jpeg;base64,' + User.imageUrl
+              : 'assets/images/default_profile.png'
+          "
+          class="w-14 h-14"
+        ></app-avatar>
+        </div>
         <div class="flex-1">
           <div class="flex justify-between items-center">
             <p class="text-sm font-semibold text-gray-800">

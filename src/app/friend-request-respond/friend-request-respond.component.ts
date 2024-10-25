@@ -54,7 +54,7 @@ import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
   styleUrl: './friend-request-respond.component.css',
 })
 export class FriendRequestRespondComponent implements OnInit {
-  @Input() user!: UserResponse;
+  @Input() user!: any;
   accepted = false;
   showReject = false;
   CurrentUser: any = JSON.parse(localStorage.getItem('user') || '{}');

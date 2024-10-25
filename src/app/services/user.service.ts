@@ -16,9 +16,17 @@ export class UserService{
         return this.http.get<UserResponse[]>(this.apiUrl+`/all/${id}`);
     }
 
-    getUserFriendList(id : string): Observable<UserResponse[]> {
-        return this.http.get<UserResponse[]>(this.apiUrl+`/friends/${id}`);
+    getUserFriendList(id : string): Observable<any[]> {
+        return this.http.get<any[]>(this.apiUrl+`/friends/${id}`);
     }
 
+    getUserById(id : string): Observable<any> {
+        return this.http.get<any>(this.apiUrl+`/${id}`);
+    }
+
+    updateUser(id: string, formData: FormData): Observable<any> {
+        return this.http.put<any>(`${this.apiUrl}/${id}`, formData);
+      }
+    
     
 }

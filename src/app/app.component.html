@@ -6,6 +6,7 @@
   
     <!-- Main Content (changeable) -->
     <div class=" w-full h-screen bg-slate-200">
+      <app-alert [show]="alertVisible" [message]="alertMessage" [type] = "typeAlert"></app-alert>
       <router-outlet></router-outlet>
     </div>
   
